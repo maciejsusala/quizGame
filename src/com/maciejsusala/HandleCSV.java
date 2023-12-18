@@ -28,6 +28,8 @@ public class HandleCSV {
         }
         return csvData;
     }
+
+    // Tego nie używasz?
     public static void printList(List<List<String>> list) {
         for (List<String> row : list) {
             for (String cell : row) {

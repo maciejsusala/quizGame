@@ -7,6 +7,11 @@ import java.util.Scanner;
 public class Game {
     private int score;
 
+    // Możesz wrzucić w konstruktor domyślny - po przemyśleniu jednak to lepsze rozwiązanie. Ew. w blok inicijujący (zwykły)
+    // Zamiast listy list można zrobić obiekt pytanie :) I tam też może być metoda, która sprawdza poprawną odpowiedź
+    List<List<String>> quizQuestions = csvToArrayList();
+
+    // kosmetyka ale raczej przed albo po deklarajcach pól bym umieścił
     private static final Scanner scanner = new Scanner(System.in);
 
     public int getScore() {
@@ -17,21 +22,24 @@ public class Game {
         this.score = score;
     }
 
+    // prywatne metody, które nie są getterami/setterami raczej na końcu po publicznych metodach
     private boolean isCharABCD(char c) {
         return c >= 'A' && c <= 'D';
     }
-    List<List<String>> quizQuestions = csvToArrayList();
+
 
     public void runGame() {
         for (int i = 1; i < quizQuestions.size(); i++) {
             displayQuestion(i);
             char readAnswer = getAnswerFromUser();
+            // tak jak mówiłem można utworzyć klasę quiz question i tam przenieść sprawdzenie dla pytania
             char correctAnswer = quizQuestions.get(i).get(5).charAt(0);
             processAnswer(readAnswer, correctAnswer, i);
         }
         displayFinalScore();
     }
 
+    // To też można by przenieśc to dej klasy Question
     private void displayQuestion(int questionIndex) {
         System.out.println(quizQuestions.get(questionIndex).get(0));
         System.out.println("A: " + quizQuestions.get(questionIndex).get(1));
